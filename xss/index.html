@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
   <body>
-  
+  <style>
+    p {
+      margin:5px;
+    }
+    h2 {
+      margin: 8px;
+    }
+  </style>
   <h1 style="text-align: center; margin: 50px;">Example of Cross Site Scripting</h1>
   <div style="display: flex; justify-content: center">
     <div style="display: flex;flex-direction: column;margin: 10px">
@@ -12,7 +19,9 @@
     </div>
 
     <div style="display: flex;flex-direction: column;margin: 10px">
-      <h2>How to XSS attack this page!</h2>
+      <h2>What is this page?</h2>
+      <p>It's just a regular message board where anyone can leave a comment.</p>
+      <h2>How to XSS this page!</h2>
       <p>1) Type in a regular comment and press submit. See what happens. Normal right?</p>
       <p>2) Type in the following and submit: &ltbutton onclick="alert('You\'ve been hacked!')"&gtClick for free money!&lt/button&gt</p>
       <p>3) Click the button!</p>
@@ -24,6 +33,10 @@
       <p>Furthermore, if this was saved in a database, a script tag could have been used for the comment instead of a button.</p>
       <p>The script would have ran instantly when the page loaded, no button needed!.</p>
       <p>XSS attacks are quite dangerous because it can turn a normal site into an unsafe one.</p>
+      <h2>How do we prevent?</h2>
+      <a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" target="blank">
+        https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
+      </a>
     </div>
   </div>
   <script>

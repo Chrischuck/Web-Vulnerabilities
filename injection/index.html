@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <body>
+  <style>
+    p {
+      margin: 5px;
+    }
+    h2 {
+      margin: 8px 5px;
+    }
+  </style>
+  <h1 style="text-align: center; margin: 50px;">Example of a SQL injection</h1>
+  <div style="display: flex; justify-content: center">
+    <div style="display: flex;flex-direction: column;margin: 10px">
+      <h2>Enter an ID!</h2>
+      <input id="input" type='text' placeholder="id" style="width: 400px"></input>
+      <button onclick="onSubmit()">Submit</button>
+      <h2>Generated SQL on the server</h2>
+      <p id="sql" style="display: flex; align-items: center; padding: 5px; margin: 5px; border: 1px solid gray; height: 30px;"></p>
+    </div>
+
+    <div style="display: flex;flex-direction: column;margin: 10px">
+      <h2>What is this page?</h2>
+      <p>It's a page that queries a SQL database given an ID (6 digit number, no spaces).</p>
+      <h2>How to SQL inject this page!</h2>
+      <p>1) Type in an ID (6 digit number, no spaces) and submit. See the SQL that would be generated on the server.</p>
+      <p>2) Type in the following and submit: 123456; DROP TABLE users</p>
+      <p>3) Look at the malicious SQL you made!</p>
+      <h2>What happened?</h2>
+      <p>The server must query the database so it uses the ID you input to generate a query!</p>
+      <p>This works fine if you're sure of the input, what if we added a space? Our SQL query would break.</p>
+      <p>In a perfect world, the only thing that would happen is your SQL would be invalid.</p>
+      <p>Unfortunately, we were able to create two completely valid SQL statements, both of which would run just fine.</p>
+      <p>One of those statements just dropped our entire Users table 🤯</p>
+      <h2>How do we prevent?</h2>
+      <a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet" target="blank">
+        https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet
+      </a>
+    </div>
+  </div>
+  <script>
+    function onSubmit(e) {
+      const text = document.getElementById('input').value
+      if (!text) {
+        return
+      }
+
+      document.getElementById('sql').innerText = `SELECT * FROM users WHERE id = ${text};`
+      document.getElementById('input').value = ''
+    }
+  </script>
+  </body>
+</html>
