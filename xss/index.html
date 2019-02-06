@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <body>
+  
+  <h1 style="text-align: center; margin: 50px;">Example of Cross Site Scripting</h1>
+  <div style="display: flex; justify-content: center">
+    <div style="display: flex;flex-direction: column;margin: 10px">
+      <h2>Leave a Comment!</h2>
+      <textarea id="text-area" style="width: 400px; height: 200px;"></textarea>
+      <button onclick="onSubmit()">Submit</button>
+      <h2 id="comments">Comments</h2>
+    </div>
+
+    <div style="display: flex;flex-direction: column;margin: 10px">
+      <h2>How to XSS attack this page!</h2>
+      <p>1) Type in a regular comment and press submit. See what happens. Normal right?</p>
+      <p>2) Type in the following and submit: &ltbutton onclick="alert('You\'ve been hacked!')"&gtClick for free money!&lt/button&gt</p>
+      <p>3) Click the button!</p>
+      <h2>What happened?</h2>
+      <p>As you can see you created a fully functioning button in the comment section 😳. That's dangerous!</p>
+      <p>Imagine this comment was saved into a database and broadcasted to everyone who visited this site.</p>
+      <p>Everyone wants free money, so you can imagine the amount of people clicking this button.</p>
+      <p>However, in the real world, there would most likely be a script stealing confidential data.</p>
+      <p>Furthermore, if this was saved in a database, a script tag could have been used for the comment instead of a button.</p>
+      <p>The script would have ran instantly when the page loaded, no button needed!.</p>
+      <p>XSS attacks are quite dangerous because it can turn a normal site into an unsafe one.</p>
+    </div>
+  </div>
+  <script>
+    function onSubmit(e) {
+      const text = document.getElementById('text-area').value
+      if (!text) {
+        return
+      }
+      commentHeader = document.getElementById('comments')
+
+      commentHeader.insertAdjacentHTML( 'afterend', `<p style="padding: 5px; margin: 5px; border: 1px solid gray;">${text}<p>`)
+
+      document.getElementById('text-area').value = ''
+    }
+  </script>
+  </body>
+</html>
